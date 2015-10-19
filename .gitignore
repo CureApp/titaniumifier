@@ -1,6 +1,8 @@
-lib/util/_prelude.js
 node_modules
+.editorconfig
 test/packer/build
 test/runtime/build
 tmp
+.releaseignore
+npm-debug.log
 !test/**/node_modules
