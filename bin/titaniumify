@@ -1,0 +1,37 @@
+#!/usr/bin/env node
+
+var packer = require('../packer');
+var pkg = require('../package');
+
+var logSymbols = require('log-symbols');
+var path = require('path');
+var program = require('commander');
+var updateNotifier = require('update-notifier');
+
+updateNotifier({ pkg: pkg }).notify();
+
+
+program
+  .version(pkg.version)
+  .option('-i, --in <directory>', 'The module to titaniumify', process.cwd())
+  .parse(process.argv);
+
+pack(resolve(program.in));
+
+
+
+function pack(entry) {
+
+  var packed = packer.pack(entry, {}, function() {
+
+    var Promise = packed.constructor;
+
+    Promise.props(packed).then(function(v) {
+      console.log(v.source.toString())
+    });
+  });
+}
+
+function resolve(p) {
+  return path.resolve(process.cwd(), p || '.');
+}
