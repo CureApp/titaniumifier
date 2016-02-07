@@ -15,15 +15,16 @@ updateNotifier({ pkg: pkg }).notify();
 program
   .version(pkg.version)
   .option('-i, --in <directory>', 'The module to titaniumify', process.cwd())
+  .option('-m, --main <file>', 'entry point to titaniumify')
   .parse(process.argv);
 
 pack(resolve(program.in));
 
 
 
-function pack(entry) {
+function pack(dir) {
 
-  var packed = packer.pack(entry, {}, function() {
+  var packed = packer.pack(dir, {main: program.main}, function() {
 
     var Promise = packed.constructor;
 
