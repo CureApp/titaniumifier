@@ -7,6 +7,7 @@ var logSymbols = require('log-symbols');
 var path = require('path');
 var program = require('commander');
 var updateNotifier = require('update-notifier');
+var derequire = require('derequire')
 
 updateNotifier({ pkg: pkg }).notify();
 
@@ -27,7 +28,7 @@ function pack(entry) {
     var Promise = packed.constructor;
 
     Promise.props(packed).then(function(v) {
-      console.log(v.source.toString())
+      console.log(derequire(v.source.toString()))
     });
   });
 }
